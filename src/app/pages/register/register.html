@@ -1,0 +1,29 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h1>Create account</h1>
+    <p class="subtitle">Join Karvell and manage your garage</p>
+
+    <form (ngSubmit)="submit()">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" name="email" placeholder="you@example.com" required />
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" [(ngModel)]="username" name="username" placeholder="yourname" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required />
+      </div>
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+      <button type="submit" class="btn-primary" [disabled]="loading">
+        {{ loading ? 'Creating account...' : 'Create account' }}
+      </button>
+    </form>
+
+    <p class="switch">Already have an account? <a routerLink="/login">Sign in</a></p>
+  </div>
+</div>

@@ -1,6 +1,14 @@
-<main class="container">
-  <h1 class="title">Karvell</h1>
-  <p class="message">{{ message() }}</p>
-</main>
+<nav class="navbar">
+  <a class="logo" routerLink="/garage">Karvell</a>
+  <div class="nav-links">
+    @if (auth.isLoggedIn()) {
+      <a routerLink="/garage">Garage</a>
+      <button class="btn-secondary" (click)="auth.logout()">Logout</button>
+    } @else {
+      <a routerLink="/login">Sign in</a>
+      <a routerLink="/register" class="btn-primary">Get Started</a>
+    }
+  </div>
+</nav>
 
 <router-outlet />

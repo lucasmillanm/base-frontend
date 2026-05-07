@@ -1,0 +1,70 @@
+<div class="garage">
+  <div class="garage-header">
+    <h1>My Garage</h1>
+    <button class="btn-primary" (click)="showForm = !showForm">
+      {{ showForm ? 'Cancel' : '+ Add Car' }}
+    </button>
+  </div>
+
+  @if (showForm) {
+    <div class="add-car-form">
+      <h2>Add a car</h2>
+      <form (ngSubmit)="addCar()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Make</label>
+            <input [(ngModel)]="form.make" name="make" placeholder="Toyota" required />
+          </div>
+          <div class="form-group">
+            <label>Model</label>
+            <input [(ngModel)]="form.model" name="model" placeholder="Supra" required />
+          </div>
+          <div class="form-group">
+            <label>Year</label>
+            <input type="number" [(ngModel)]="form.year" name="year" required />
+          </div>
+          <div class="form-group">
+            <label>Color</label>
+            <input [(ngModel)]="form.color" name="color" placeholder="White" required />
+          </div>
+          <div class="form-group">
+            <label>Plate</label>
+            <input [(ngModel)]="form.plate" name="plate" placeholder="ABC123" required />
+          </div>
+          <div class="form-group">
+            <label>Mileage (km)</label>
+            <input type="number" [(ngModel)]="form.mileage" name="mileage" required />
+          </div>
+          <div class="form-group">
+            <label>Purchase Price</label>
+            <input type="number" [(ngModel)]="form.purchasePrice" name="purchasePrice" required />
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" [disabled]="loading">
+          {{ loading ? 'Adding...' : 'Add Car' }}
+        </button>
+      </form>
+    </div>
+  }
+
+  @if (cars().length === 0) {
+    <div class="empty">
+      <p>No cars yet. Add your first one.</p>
+    </div>
+  } @else {
+    <div class="car-grid">
+      @for (car of cars(); track car.id) {
+        <div class="car-card">
+          <div class="car-title">{{ car.year }} {{ car.make }} {{ car.model }}</div>
+          <div class="car-details">
+            <span>{{ car.color }}</span>
+            <span>{{ car.plate }}</span>
+            <span>{{ car.mileage | number }} km</span>
+            <span>${{ car.purchasePrice | number }}</span>
+          </div>
+          <button class="btn-delete" (click)="deleteCar(car.id)">Remove</button>
+        </div>
+      }
+    </div>
+  }
+</div>

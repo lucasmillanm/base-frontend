@@ -1,21 +1,14 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { ApiService } from './services/api.service';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit {
-  private apiService = inject(ApiService);
-  message = signal<string>('Loading...');
-
-  ngOnInit() {
-    this.apiService.getHello().subscribe({
-      next: (res) => this.message.set(res),
-      error: () => this.message.set('Failed to connect to backend')
-    });
-  }
+export class App {
+  auth = inject(AuthService);
+  router = inject(Router);
 }
